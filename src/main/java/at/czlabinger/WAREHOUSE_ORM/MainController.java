@@ -1,5 +1,7 @@
 package at.czlabinger.WAREHOUSE_ORM;
 
+import at.czlabinger.WAREHOUSE_ORM.warehouse.WarehouseData;
+import at.czlabinger.WAREHOUSE_ORM.warehouse.WarehouseSimulation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -9,20 +11,18 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class MainController {
 
-    private final UserRepository userRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @PostMapping(path="/add")
-    public @ResponseBody String addNewUser (@RequestParam String email, @RequestParam String password) {
+    public @ResponseBody String addNewUser (@RequestParam int id) {
 
-        User n = new User();
-        n.setEmail(email);
-        n.setPassword(password);
-        userRepository.save(n);
+        WarehouseData wd = new WarehouseSimulation().getData(id);
+        warehouseRepository.save(wd);
         return "Saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    public @ResponseBody Iterable<WarehouseData> getAllWarehouses() {
+        return warehouseRepository.findAll();
     }
 }
