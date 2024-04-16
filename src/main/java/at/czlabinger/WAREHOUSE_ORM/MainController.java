@@ -13,7 +13,6 @@ public class MainController {
 
     @PostMapping(path="/add")
     public @ResponseBody String addNewUser (@RequestParam String email, @RequestParam String password) {
-
         User n = new User();
         n.setEmail(email);
         n.setPassword(password);
